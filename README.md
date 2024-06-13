@@ -46,8 +46,8 @@ Once the prerequisites have been installed, you can launch the next section via 
 
 ```
 # Clone the repo
-git clone 
-cd 
+git clone JP-LETG-Rennes/SOS_EOS_LETG.git
+cd SOS_EOS_LETG
 
 # Create a new python environnement with conda  
 conda create --name SOS_EOS python=3.9
