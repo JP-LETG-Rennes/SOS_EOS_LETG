@@ -1,3 +1,11 @@
 {
+    "rep_NDVI_path" : "/home/adr2.local/pellen_j/Projet_Laura_Samuel/Test2/",
   
+    "img_ref" : "/home/adr2.local/pellen_j/Projet_Laura_Samuel/Test2/20230114_NDVI.tif",
+
+    "name_result_SOS" : "/home/adr2.local/pellen_j/Projet_Laura_Samuel/Test2/SOS_Berambadi_2023_NDVI_Venus.tif",
+
+    "name_result_EOS" : "/home/adr2.local/pellen_j/Projet_Laura_Samuel/Test2/EOS_Berambadi_2023_NDVI_Venus.tif",
+
+    "nb_process" : 18
 }
