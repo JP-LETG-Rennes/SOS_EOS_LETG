@@ -26,109 +26,10 @@ def seuil_index_norma(matrice):
 
     return matrice_seuil
 
-def findfile(name_img, path):
-    for dirpath, dirname, filename in os.walk(path):
-        if name_img in filename:
-            return dirpath
-
-def ni4Find(path_dezip):
-    list_pre_dos = [e for e in os.listdir(path_dezip) if e[-5:] == ".SAFE"]
-
-    list_dos = [os.path.join(path_dezip, e) for e in os.listdir(path_dezip) if e[-5:] == ".SAFE"]
-
-    list_nf = [str(e.split('_')[-2] + "_" + e.split('_')[2] + "_B02.jp2") for e in list_pre_dos]
-
-    list_res = [findfile(e, i) for e, i in zip(list_nf, list_dos)]
-
-    return list_res
-
 def dbl_sigmoid_function(t, EVI_w, EVI_m, mS, S, mA, A):
     sigma1 = 1. / (1 + np.exp(mA * (t - A)))
     sigma2 = 1. / (1 + np.exp(-mS * (t - S)))
     return EVI_w + (EVI_m - EVI_w) * (sigma1 + sigma2 - 1)
-
-def img_to_csv(filepath, name_csv, filter=False):
-    img = nd(filepath)
-    table = None
-    if filter is False:
-        if len(img.shape) <= 2:
-
-            band = img.band_Array
-
-            ds_ravel = np.ravel(band)
-            # ds_ravel = ds_ravel.reshape(-1, 1)
-            dic = {'Bande1': ds_ravel}
-            table = pd.DataFrame(data=dic)
-
-        else:
-
-            nb_bande = img.shape[2]
-            if nb_bande >= 8:
-                print(img.shape)
-                nb_bande = img.shape[0]
-
-            dic = {}
-
-            for e in range(nb_bande):
-                band = img.band_Array[e, :, :]
-                ds_ravel = np.ravel(band)
-                # ds_ravel = ds_ravel.reshape(-1, 1)
-                dic['Bande{}'.format(e + 1)] = ds_ravel
-            print(dic)
-            table = pd.DataFrame(data=dic)
-
-        table.to_csv(name_csv)
-
-        return table
-    else:
-        img.gaussian_filter_meth()
-        if len(img.shape) <= 2:
-
-            band = img.gaussian_filter_array
-            ds_ravel = np.ravel(band)
-            # ds_ravel = ds_ravel.reshape(-1, 1)
-            dic = {'Bande1': ds_ravel}
-            table = pd.DataFrame(data=dic)
-
-        else:
-
-            nb_bande = img.shape[2]
-            if nb_bande >= 8:
-                print(img.shape)
-                nb_bande = img.shape[0]
-
-            dic = {}
-
-            for e in range(nb_bande):
-                band = img.gaussian_filter_array[e, :, :]
-                ds_ravel = np.ravel(band)
-                # ds_ravel = ds_ravel.reshape(-1, 1)
-                dic['Bande{}'.format(e + 1)] = ds_ravel
-            print(dic)
-            table = pd.DataFrame(data=dic)
-
-        table.to_csv(name_csv)
-
-        return table
-
-def date_Data(path, select_format):
-    l = [e for e in os.listdir(path) if e.endswith(select_format)]
-
-    l_tuile_date = []
-
-    for file in l:
-        date_str = file.split('_')[1][:8]  # Mise en forme de la date
-
-        tile_date = datetime.datetime(year=int(date_str[0:4]), month=int(date_str[4:6]),
-                                      day=int(date_str[6:8]))
-        l_tuile_date.append(tile_date)
-
-    return l_tuile_date
-
-def name_extract(path, select_format):
-    l = [e for e in os.listdir(path) if e.endswith(select_format)]
-
-    return l
 
 def ravel_img(dos_img, select_format):
 
