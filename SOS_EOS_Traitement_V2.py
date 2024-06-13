@@ -434,24 +434,13 @@ def lecture_config(configuration_path):
     with open(configuration_path, "r") as fileConf:
         conf = json.load(fileConf)
 
-    df_path = conf["df_path"]
-    raster_path = conf["raster_path"]
-    raster_path2 = conf['raster_path2']
-    outraster = conf['outraster']
-    classdicpath = conf['classdicpath']
-    listlabel = conf['listlabel']
-    geopakg_out = conf['geopakg_out']
-    sep = conf['sep']
-    decimal = conf['decimal']
+    rep_NDVI_path = conf["rep_NDVI_path"]
+    img_ref = conf["img_ref"]
+    name_result_SOS = conf["name_result_SOS"]
+    name_result_EOS = conf["name_result_EOS"]
+    nb_process = conf["nb_process"]
 
-    try:
-        pred = main_process(df_path,raster_path,raster_path2,outraster,classdicpath,listlabel,geopakg_out,sep,decimal)
-
-    except TypeError:
-        raise('Attention une ou plusieurs des variables ne sont pas valides')
-        sys.exit(1)
-
-    return pred
+    return rep_NDVI_path, img_ref, name_result_SOS, name_result_EOS, nb_process
 
 
 if __name__ == '__main__':
@@ -459,21 +448,12 @@ if __name__ == '__main__':
     debut = time.time()
 
     ############## Chemin d'accès ##############
-
-    rep_NDVI_path = "/home/adr2.local/pellen_j/Projet_Laura_Samuel/Test2/"
-
-    img_ref = '/home/adr2.local/pellen_j/Projet_Laura_Samuel/Test2/20230114_NDVI.tif'
-
-    name_result_SOS = "/home/adr2.local/pellen_j/Projet_Laura_Samuel/Test2/SOS_Berambadi_2023_NDVI_Venus.tif"
-
-    name_result_EOS = "/home/adr2.local/pellen_j/Projet_Laura_Samuel/Test2/EOS_Berambadi_2023_NDVI_Venus.tif"
-
-    nb_process = 18
+    rep_NDVI_path, img_ref, name_result_SOS, name_result_EOS, nb_process = lecture_config(config_SOS_EOS)
 
     ############## Processus ##############
 
     filepath = name_extract(rep_NDVI_path, '.tif')
-
+ 
     du = ravel_img(rep_NDVI_path, select_format='.tif')
 
     df = savgol_in_dict(du)
@@ -485,8 +465,6 @@ if __name__ == '__main__':
     df_Savgol = df[l_select_Sav]
 
     df_Savgol = df_Savgol.dropna(axis=0)
-
-    print(df_Savgol)
     
     # Partie sur multiprocessing
     
