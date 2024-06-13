@@ -1,0 +1,15 @@
+hiclass
+numpy
+pandas
+geopandas
+matplotlib
+rasterio
+scipy
+scikit-learn
+pyproj
+scipy
+jupyter notebook
+seaborn
+xarray
+rioxarray
+shap 
