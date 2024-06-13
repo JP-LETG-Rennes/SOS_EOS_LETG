@@ -428,6 +428,32 @@ def agencement_data_multiproces (dataframePandas, nb_process, name_file_SOS, nam
     nd.Write_ras(EOS, name_file_EOS, img_ref.geodata,
                  img_ref.projection)
 
+def lecture_config(configuration_path):
+
+    # Récupération des paramètres contenus dans le fichier conf.json
+    with open(configuration_path, "r") as fileConf:
+        conf = json.load(fileConf)
+
+    df_path = conf["df_path"]
+    raster_path = conf["raster_path"]
+    raster_path2 = conf['raster_path2']
+    outraster = conf['outraster']
+    classdicpath = conf['classdicpath']
+    listlabel = conf['listlabel']
+    geopakg_out = conf['geopakg_out']
+    sep = conf['sep']
+    decimal = conf['decimal']
+
+    try:
+        pred = main_process(df_path,raster_path,raster_path2,outraster,classdicpath,listlabel,geopakg_out,sep,decimal)
+
+    except TypeError:
+        raise('Attention une ou plusieurs des variables ne sont pas valides')
+        sys.exit(1)
+
+    return pred
+
+
 if __name__ == '__main__':
 
     debut = time.time()
