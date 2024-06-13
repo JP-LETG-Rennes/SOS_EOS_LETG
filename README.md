@@ -69,7 +69,7 @@ If Using Terminal:
       1. Download build from source. 
       2. Activate Conda Environnement Hiclass
       3. Enter variables in configuration file : configuration_SOS_EOS_LETG.json
-      4. Launching via terminal SOS_EOS.py
+      4. Launching via terminal SOS_EOS_Traitement_V2.py
 
      
 Simplified usage with notebook : 
