@@ -58,7 +58,7 @@ conda install pip
 pip install --upgrade pip
 
 # Install requirements
-pip install -r requirements_envs.txt
+pip install -r requirements_env.txt
 
 ```
 
